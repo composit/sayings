@@ -1,4 +1,8 @@
 Sayings::Application.routes.draw do |map|
+  resources :users
+  resources :user_sessions
+  match 'account' => 'users#edit'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

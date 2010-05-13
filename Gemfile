@@ -25,6 +25,14 @@ gem 'mysql'
 #   gem 'webrat'
 # end
 
+gem 'authlogic', :git => 'http://github.com/odorcicd/authlogic.git', :branch => "rails3"
+gem "cancan"
+
+group :development do
+  gem 'mongrel'
+  gem 'ruby-debug'
+end
+
 group :test do
   gem 'capybara'
   gem 'database_cleaner'
