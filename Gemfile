@@ -41,4 +41,7 @@ group :test do
   gem 'rspec-rails', '>=2.0.0.beta.8'
   gem 'spork'
   gem 'launchy'
+  gem 'factory_girl', :git => 'git://github.com/szimek/factory_girl.git', :branch => 'rails3'
+  gem 'ZenTest'
+  gem 'autotest-rails'
 end

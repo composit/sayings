@@ -1,7 +1,7 @@
 <h1>Login</h1>
 
 <%= form_for @user_session do |f| %>
-  <%= error_messages_for( @user_session ) %>
+  <%= f.error_messages %>
   <%= f.label :login %><br />
   <%= f.text_field :login %><br />
   <br />
