@@ -1,0 +1,7 @@
+<%= link_to "new entry", new_entry_path if( can? :create, Entry ) %>
+
+<% for entry in @entries %>
+  <div class="entry">
+    <%= entry.content %>
+  </div>
+<% end %>

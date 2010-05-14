@@ -1,7 +1,11 @@
 Sayings::Application.routes.draw do |map|
+  resources :entries
+
   resources :users
   resources :user_sessions
-  match 'account' => 'users#edit'
+  match '/account' => 'users#edit'
+  match '/login' => 'user_sessions#new'
+  match '/logout' => 'user_sessions#destroy'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -53,7 +57,7 @@ Sayings::Application.routes.draw do |map|
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   # root :to => "welcome#index"
-  root :to => "users#new"
+  root :to => "entries#index"
 
   # See how all your routes lay out with "rake routes"
 

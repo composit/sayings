@@ -9,12 +9,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100513015201) do
+ActiveRecord::Schema.define(:version => 20100514220806) do
+
+  create_table "entries", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "parent_id"
+    t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "login",               :null => false
     t.string   "email",               :null => false
-    t.string   "website_url",         :null => false
+    t.string   "website_url"
     t.string   "crypted_password",    :null => false
     t.string   "password_salt",       :null => false
     t.string   "persistence_token",   :null => false

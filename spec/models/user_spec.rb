@@ -2,18 +2,15 @@ require 'spec_helper'
 
 describe User do
   it "should create a new instance given valid attributes" do
-    user = Factory.build( :user )
-    user.should be_valid
+    Factory( :user ).should be_valid
   end
 
   it "should create a new instance given a valid website_url" do
-    user = Factory.build( :user, :website_url => "http://www.google.com" )
-    user.should be_valid
+    Factory.build( :user, :website_url => "http://www.google.com" ).should be_valid
   end
 
   it "should create a new instance without a website_url" do
-    user = Factory.build( :user, :website_url => "" )
-    user.should be_valid
+    Factory.build( :user, :website_url => "" ).should be_valid
   end
 
   it "should not create a new instance given an invalid website_url" do
