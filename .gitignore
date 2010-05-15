@@ -4,3 +4,5 @@ log/*.log
 tmp/**/*
 config/database.yml
 capybara*
+app/views/layouts/application.html.erb
+public/stylesheets/main.css
