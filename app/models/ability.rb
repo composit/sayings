@@ -6,7 +6,7 @@ class Ability
 
     can :read, Entry
     can :create, Entry do |entry|
-      THREAD_STARTERS.include?( user.login )
+      THREAD_STARTERS.empty? ? !user.new_record? : THREAD_STARTERS.include?( user.login )
     end
   end
 end
