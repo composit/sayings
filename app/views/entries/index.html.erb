@@ -2,6 +2,9 @@
 
 <% for entry in @entries %>
   <div class="entry">
-    <%= entry.content %>
+    <p><%= entry.content %></p>
+    <div class="entry-footer">
+      <%= entry.user.login %> - <%= entry.created_at.strftime( "%m.%d.%Y" ) %>
+    </div>
   </div>
 <% end %>
