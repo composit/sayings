@@ -1,4 +1,7 @@
 <%= link_to "new entry", new_entry_path if( can? :create, Entry ) %>
+<div id="notice">
+  <%= flash[:notice] %>
+</div>
 
 <% for entry in @entries %>
   <div class="entry">

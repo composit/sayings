@@ -6,6 +6,6 @@ config/database.yml
 capybara*
 app/views/layouts/application.html.erb
 public/stylesheets/main.css
-config/local.yml
+config/initializers/local.rb
 public/images/static_images/*
 public/static_pages/*

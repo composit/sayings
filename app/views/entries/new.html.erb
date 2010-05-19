@@ -1,0 +1,12 @@
+<h1>New entry</h1>
+
+<%= form_for( @entry ) do |f| %>
+  <div class="input-row">
+    <div class="input-label"><%= f.label :content %></div>
+    <div class="input-field"><%= f.text_area :content %></div>
+  </div>
+  <div class="input-row">
+    <div class="input-label">&nbsp;</div>
+    <div class="input-field"><%= f.submit %></div>
+  </div>
+<% end %>

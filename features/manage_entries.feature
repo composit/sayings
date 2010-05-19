@@ -47,3 +47,22 @@ Feature: Manage entries
       | Lorem ipsum dolor   |
       | Here's some content |
       | Words about topics  |
+
+  Scenario: Add new entries
+    Given I am a logged in user called "Mister user"
+    When I am on the new entry page
+    And I fill in "Content" with "Bla bla bla"
+    And I press "Create Entry"
+    Then I should see "Entry was successfully created"
+    When I am on the entries page
+    Then I should see "Bla bla bla"
+
+  Scenario: New entries are assigned to the logged in user
+    Given I am a logged in user called "Mister user"
+    When I am on the new entry page
+    And I fill in "Content" with "Bla bla bla"
+    And I press "Create Entry"
+    Then I should see "Entry was successfully created"
+    When I am on the entries page
+    Then I should see "Bla bla bla"
+    And I should see "Mister user"
