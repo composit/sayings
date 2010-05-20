@@ -7,8 +7,7 @@ Feature: Manage entries
     When I am on the entries page
     Then I should not see "new entry"
     Given I am a logged in user called "other user"
-    When I am on the entries page
-    Then I should not see "new entry"
+    When I am on the entries page Then I should not see "new entry"
     Given I am a logged in user called "thread starter"
     When I am on the entries page
     Then I should see "new entry"
@@ -66,3 +65,19 @@ Feature: Manage entries
     When I am on the entries page
     Then I should see "Bla bla bla"
     And I should see "Mister user"
+
+  @javascript
+  Scenario: Sanitize entries
+    Given the following entries:
+      | content                                                          |
+      | <script type='text/javascript'>document.write('hello');</script> |
+    When I am on the entries page
+    Then I should not see "hello"
+
+  Scenario: Autolink urls
+    Given the following entries:
+      | content                |
+      | http://www.google.com/ |
+    When I am on the entries page
+    And I follow "http://www.google.com/"
+    Then I should be sent to the "http://www.google.com/" webpage

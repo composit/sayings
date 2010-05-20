@@ -2,7 +2,10 @@
 
 <%= form_for( @entry ) do |f| %>
   <div class="input-row">
-    <div class="input-label"><%= f.label :content %></div>
+    <div class="input-label">
+      <%= f.label :content %>
+      <div class="input-hints">allowable html tags: b, strong, i, em, img.  Links will be auto-linked.</div>
+    </div>
     <div class="input-field"><%= f.text_area :content %></div>
   </div>
   <div class="input-row">
