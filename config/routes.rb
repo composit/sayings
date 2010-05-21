@@ -1,11 +1,7 @@
 Sayings::Application.routes.draw do |map|
-  resources :entries
+  devise_for :users
 
-  resources :users
-  resources :user_sessions
-  match '/account' => 'users#edit'
-  match '/login' => 'user_sessions#new'
-  match '/logout' => 'user_sessions#destroy'
+  resources :entries
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

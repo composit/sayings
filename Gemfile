@@ -1,11 +1,14 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.0.beta3'
+# gem 'rails', '3.0.0.beta3'
 
 # Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
+gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'mysql'
+#gem 'mysql'
+gem 'mongoid', '>=2.0.0.beta6'
+gem 'mongo_ext'
+gem 'bson_ext', '>=1.0.1'
 
 # Use unicorn as the web server
 # gem 'unicorn'
@@ -25,8 +28,9 @@ gem 'mysql'
 #   gem 'webrat'
 # end
 
-gem 'authlogic', :git => 'http://github.com/odorcicd/authlogic.git', :branch => "rails3"
-gem "cancan"
+#gem 'authlogic', :git => 'http://github.com/odorcicd/authlogic.git', :branch => "rails3"
+gem 'devise', '>=1.1.rc1'
+gem 'cancan'
 
 group :development do
   gem 'mongrel'
