@@ -1,3 +1,4 @@
+=begin
 File.open( File.join( Rails.root, 'config/database.mongo.yml' ), 'r' ) do |f|
   @settings = YAML.load( f )[RAILS_ENV]
 end
@@ -7,3 +8,4 @@ Mongoid.configure do |config|
   host = @settings['host']
   config.master = Mongo::Connection.new.db( name )
 end
+=end

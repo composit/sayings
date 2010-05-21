@@ -1,9 +1,13 @@
-class Entry < ActiveRecord::Base
-  default_scope order( "created_at desc" )
+class Entry
+  include Mongoid::Document
+  include Mongoid::Timestamps
 
-  belongs_to :user
-  belongs_to :parent, :class_name => "Entry"
-  has_many :children, :class_name => "Entry", :foreign_key => "parent_id"
+  field :user_id
+  field :content
+
+  scope :reverse_chronological, order_by( [:created_at, :desc] )
+
+  belongs_to_related :user
 
   validates :user_id, :presence => true
 end

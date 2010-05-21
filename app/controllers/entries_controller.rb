@@ -2,7 +2,7 @@ class EntriesController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @entries = Entry.all
+    @entries = Entry.reverse_chronological
   end
 
   def new

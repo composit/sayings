@@ -21,4 +21,7 @@ Rspec.configure do |config|
   # If you'd prefer not to run each of your examples within a transaction,
   # uncomment the following line.
   # config.use_transactional_examples = false
+  
+  config.before( :all ) { Mongoid.database.collections.each( &:drop ) }
+  config.after( :all ) { Mongoid.database.collections.each( &:drop ) }
 end

@@ -4,7 +4,7 @@
   <div class="entry">
     <%= format_content( entry.content ) %>
     <div class="entry-footer">
-      <%= entry.user.login %> - <%= entry.created_at.strftime( "%m.%d.%Y" ) %>
+      <%= entry.user.username %> - <%= entry.created_at.strftime( "%m.%d.%Y" ) %>
     </div>
   </div>
 <% end %>

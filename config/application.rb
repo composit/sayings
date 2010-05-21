@@ -1,6 +1,8 @@
 require File.expand_path('../boot', __FILE__)
 
 require "action_controller/railtie"
+
+require 'mongoid/railtie'
 require "action_mailer/railtie"
 require 'mongoid/railtie'
 #require "active_resource/railtie"

@@ -6,7 +6,7 @@ source 'http://rubygems.org'
 gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 #gem 'mysql'
-gem 'mongoid', '>=2.0.0.beta6'
+gem 'mongoid', :git => 'http://github.com/durran/mongoid.git'
 gem 'mongo_ext'
 gem 'bson_ext', '>=1.0.1'
 
@@ -29,7 +29,7 @@ gem 'bson_ext', '>=1.0.1'
 # end
 
 #gem 'authlogic', :git => 'http://github.com/odorcicd/authlogic.git', :branch => "rails3"
-gem 'devise', '>=1.1.rc1'
+gem 'devise', :git => 'http://github.com/plataformatec/devise.git'
 gem 'cancan'
 
 group :development do
