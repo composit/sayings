@@ -10,9 +10,13 @@ development:
   <<: *defaults
   database: sayings_development
 
-test:
+test: &test
   <<: *defaults
   database: sayings_test
+
+cucumber:
+  <<: *defaults
+  database: *test
 
 # set these environment variables on your prod server
 production:

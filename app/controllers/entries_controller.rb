@@ -2,7 +2,7 @@ class EntriesController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @entries = Entry.reverse_chronological
+    @entries = Entry.order_by( [:created_at, :desc] )
   end
 
   def new

@@ -40,8 +40,7 @@ end
 group :test do
   gem 'capybara'
   gem 'database_cleaner'
-  gem 'cucumber-rails'
-  gem 'cucumber', '>=0.7.2'
+  gem 'cucumber-rails', :git => 'git://github.com/aslakhellesoy/cucumber-rails.git'
   gem 'rspec-rails', '>=2.0.0.beta.8'
   gem 'spork'
   gem 'launchy'

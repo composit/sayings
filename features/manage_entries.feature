@@ -7,7 +7,8 @@ Feature: Manage entries
     When I am on the entries page
     Then I should not see "new entry"
     Given I am a logged in user called "other user"
-    When I am on the entries page Then I should not see "new entry"
+    When I am on the entries page
+    Then I should not see "new entry"
     Given I am a logged in user called "thread starter"
     When I am on the entries page
     Then I should see "new entry"
@@ -22,10 +23,10 @@ Feature: Manage entries
 
   Scenario: Display content, author and date of entries
     Given the following entries:
-      | content             | created_at | user_login |
-      | Here's some content | 2002-02-02 | Mildred    |
-      | Lorem ipsum dolor   | 2003-03-03 | Grover     |
-      | Words about topics  | 2001-01-01 | Ophelia    |
+      | content             | created_at | user_username |
+      | Here's some content | 2002-02-02 | Mildred       |
+      | Lorem ipsum dolor   | 2003-03-03 | Grover        |
+      | Words about topics  | 2001-01-01 | Ophelia       |
     When I am on the entries page
     Then I should see "Here's some content"
     And I should see "Mildred - 02.02.2002"

@@ -7,10 +7,11 @@
 ENV["RAILS_ENV"] ||= "test"
 require File.expand_path(File.dirname(__FILE__) + '/../../config/environment')
 
+require 'mongoid'
 require 'cucumber/formatter/unicode' # Remove this line if you don't want Cucumber Unicode support
 require 'cucumber/rails/rspec'
 require 'cucumber/rails/world'
-require 'cucumber/rails/active_record'
+#require 'cucumber/rails/active_record'
 require 'cucumber/web/tableish'
 
 require 'capybara/rails'
@@ -49,16 +50,13 @@ ActionController::Base.allow_rescue = false
 # Cucumber::Rails::World.use_transactional_fixtures = false
 # How to clean your database when transactions are turned off. See
 # http://github.com/bmabey/database_cleaner for more info.
-#if defined?(ActiveRecord::Base)
+if defined?(ActiveRecord::Base)
   begin
     require 'database_cleaner'
     DatabaseCleaner.strategy = :truncation
   rescue LoadError => ignore_if_database_cleaner_not_present
   end
-#end
-
-=begin
-Before do
-  Mongoid.master.collections.each( &:drop )
 end
-=end
+Before do
+  Mongoid.master.collections.each(&:drop)
+end

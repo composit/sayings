@@ -5,7 +5,7 @@ class Entry
   field :user_id
   field :content
 
-  scope :reverse_chronological, order_by( [:created_at, :desc] )
+  index :created_at
 
   belongs_to_related :user
 

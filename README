@@ -1,9 +1,7 @@
 simple discussion tool
 
 example files (copy these to non-examples):
-config/database.yml.example
 config/initializers/local.rb.example
 config/initializers/devise.rb.example
 public/stylesheets/main.css.example
 app/views/layouts/application.html.erb.example
-config/environments/production.rb.example
