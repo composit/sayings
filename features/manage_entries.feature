@@ -2,19 +2,19 @@ Feature: Manage entries
   In order to manage entries
   users should be able to view and create entries
   
-  Scenario: Restrict thread creation to specific users
-    Given "thread starter" is identified as a thread-starter
+  Scenario: Restrict new entry creation to specific users
+    Given "exchange starter" is identified as an exchange starter
     When I am on the entries page
     Then I should not see "new entry"
     Given I am a logged in user called "other user"
     When I am on the entries page
     Then I should not see "new entry"
-    Given I am a logged in user called "thread starter"
+    Given I am a logged in user called "exchange starter"
     When I am on the entries page
     Then I should see "new entry"
 
-  Scenario: Restrict thread creation to logged in users when no thread-starters have been specified
-    Given there are no thread-starters
+  Scenario: Restrict new entry creation to logged in users when no exchange starters have been specified
+    Given there are no exchange starters
     When I am on the entries page
     Then I should not see "new entry"
     Given I am a logged in user called "mister user"
@@ -82,3 +82,17 @@ Feature: Manage entries
     When I am on the entries page
     And I follow "http://www.google.com/"
     Then I should be sent to the "http://www.google.com/" webpage
+
+  Scenario: Add comments to entry
+    Given the following entries:
+      | content    |
+      | Test entry |
+    When I am on the entries page
+    And I follow "comment"
+    And I fill in "comment" with "this is a test comment"
+    And I press "Create comment"
+    And I am on the entries page
+    Then I should see "this is a test comment"
+
+  Scenario: Entry comments default to reverse chronological order
+    pending

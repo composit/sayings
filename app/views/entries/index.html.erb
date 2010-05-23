@@ -6,5 +6,8 @@
     <div class="entry-footer">
       <%= entry.user.username %> - <%= entry.created_at.strftime( "%m.%d.%Y" ) %>
     </div>
+    <div class="comments">
+      <%= link_to_function "comment", "open_comment_panel(#{entry.id})" %>
+    </div>
   </div>
 <% end %>

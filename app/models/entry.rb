@@ -8,6 +8,7 @@ class Entry
   index :created_at
 
   belongs_to_related :user
+  embeds_many :comments
 
   validates :user_id, :presence => true
 end

@@ -1,9 +1,9 @@
-Given /^"([^\"]*)" is identified as a thread\-starter$/ do |username|
-  THREAD_STARTERS << username
+Given /^"([^\"]*)" is identified as an exchange starter$/ do |username|
+  EXCHANGE_STARTERS << username
 end
 
-Given /^there are no thread\-starters$/ do
-  THREAD_STARTERS.clear
+Given /^there are no exchange starters$/ do
+  EXCHANGE_STARTERS.clear
 end
 
 When /^I am a logged in user called "([^\"]*)"$/ do |username|

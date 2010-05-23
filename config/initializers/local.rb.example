@@ -1,2 +1,2 @@
-# If you would like to restrict users who can start threads, add their logins to this array, otherwise, leave it empty to allow any logged in user to start threads
-THREAD_STARTERS = []
+# If you would like to restrict users who can start new exchanges, add their usernames to this array, otherwise, leave it empty to allow any logged in user to start new exchanges
+EXCHANGE_STARTERS = []
