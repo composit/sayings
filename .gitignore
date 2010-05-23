@@ -2,7 +2,7 @@
 db/*.sqlite3
 log/*.log
 tmp/**/*
-config/database.yml
+config/mongoid.yml
 capybara*
 app/views/layouts/application.html.erb
 public/stylesheets/main.css
