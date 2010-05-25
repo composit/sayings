@@ -11,3 +11,16 @@ end
 Then /^I should be sent to the "(.*)" webpage$/ do |url|
   current_url.should eql( url )
 end
+
+Then /^the "(.*)" field should not be visible$/ do |text|
+  find_field( text ).should_not be_visible
+end
+
+Then /^the "(.*)" field should be visible$/ do |text|
+  find_field( text ).should be_visible
+end
+
+Then /^I should see the following text in order:$/ do |table|
+  #all( "//div[@class='entry']/p" ).each_with_index { |entry, index| entry.text.should include( table.hashes[index]["content"] ) }
+  page.body.should match( Regexp.new( table.hashes.collect { |hash| hash["text"] }.join( "(.*)" ), Regexp::MULTILINE ) )
+end

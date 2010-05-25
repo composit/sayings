@@ -7,7 +7,17 @@
       <%= entry.user.username %> - <%= entry.created_at.strftime( "%m.%d.%Y" ) %>
     </div>
     <div class="comments">
-      <%= link_to_function "comment", "open_comment_panel(#{entry.id})" %>
+      <%= link_to "comment", "#" %>
+      <div id="new-comment-#{entry.id}" class="not-shown">
+        <%= form_for( [entry, entry.comments.build] ) do |f| %>
+          <%= f.label :content, "new comment" %><br />
+          <%= f.text_area :content %>
+          <%= f.submit %>
+        <% end %>
+      </div>
+      <% entry.comments.reverse.each do |comment| %>
+        <p><%= comment.content %></p>
+      <% end %>
     </div>
   </div>
 <% end %>

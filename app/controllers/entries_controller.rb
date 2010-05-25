@@ -11,7 +11,7 @@ class EntriesController < ApplicationController
   def create
     @entry.user = current_user
     if( @entry.save )
-       redirect_to entries_path, :notice => "Entry was successfully created"
+      redirect_to entries_path, :notice => "Entry was successfully created"
     else
       render "new"
     end

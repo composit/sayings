@@ -42,8 +42,8 @@ Feature: Manage entries
       | Lorem ipsum dolor   | 2003-03-03 |
       | Words about topics  | 2001-01-01 |
     When I am on the entries page
-    Then I should see the following entries in order:
-      | content             |
+    Then I should see the following text in order:
+      | text                |
       | Lorem ipsum dolor   |
       | Here's some content |
       | Words about topics  |
@@ -82,17 +82,3 @@ Feature: Manage entries
     When I am on the entries page
     And I follow "http://www.google.com/"
     Then I should be sent to the "http://www.google.com/" webpage
-
-  Scenario: Add comments to entry
-    Given the following entries:
-      | content    |
-      | Test entry |
-    When I am on the entries page
-    And I follow "comment"
-    And I fill in "comment" with "this is a test comment"
-    And I press "Create comment"
-    And I am on the entries page
-    Then I should see "this is a test comment"
-
-  Scenario: Entry comments default to reverse chronological order
-    pending

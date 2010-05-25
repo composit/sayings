@@ -7,7 +7,3 @@ Given /^the following entries:$/ do |table|
     Factory( :entry, hash )
   end
 end
-
-Then /^I should see the following entries in order:$/ do |table|
-  all( "//div[@class='entry']/p" ).each_with_index { |entry, index| entry.text.should include( table.hashes[index]["content"] ) }
-end
