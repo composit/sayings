@@ -7,6 +7,7 @@ Feature: Manage comments
     Given the following entries:
       | content    |
       | Test entry |
+    And I am a logged in user called "Downward Facing Dog"
     When I am on the entries page
     Then the "new comment" field should not be visible
     When I follow "comment"
@@ -17,6 +18,7 @@ Feature: Manage comments
     Given the following entries:
       | content    |
       | Test entry |
+    And I am a logged in user called "Downward Facing Dog"
     When I am on the entries page
     When I follow "comment"
     Then the "new comment" field should be visible
@@ -28,6 +30,7 @@ Feature: Manage comments
     Given the following entries:
       | content    |
       | Test entry |
+    And I am a logged in user called "Downward Facing Dog"
     When I am on the entries page
     And I follow "comment"
     And I fill in "comment" with "this is a test comment"
@@ -46,6 +49,7 @@ Feature: Manage comments
       | Here's some content | super       |
       | Here's some content | great       |
       | Here's some content | pretty good |
+    And I am a logged in user called "Downward Facing Dog"
     When I am on the entries page
     Then I should see the following text in order:
       | text                |
@@ -55,3 +59,12 @@ Feature: Manage comments
       | super               |
       | Words about topics  |
       | howdy               |
+
+  @javascript
+  Scenario: clicking comments when not signed in redirects to the login page
+    Given the following entries:
+      | content    |
+      | Test entry |
+    When I am on the entries page
+    And I follow "comment"
+    Then I should be on the new user session page

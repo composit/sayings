@@ -7,7 +7,7 @@
       <%= entry.user.username %> - <%= entry.created_at.strftime( "%m.%d.%Y" ) %>
     </div>
     <div class="comments">
-      <%= link_to "comment", "#" %>
+      <%= link_to "comment", "#", :class => ( user_signed_in? ? "comment" : "login" ) %>
       <div id="new-comment-#{entry.id}" class="not-shown">
         <%= form_for( [entry, entry.comments.build] ) do |f| %>
           <%= f.label :content, "new comment" %><br />
