@@ -13,6 +13,17 @@ Feature: Manage comments
     Then the "new comment" field should be visible
 
   @javascript
+  Scenario: Close commenting box
+    Given the following entries:
+      | content    |
+      | Test entry |
+    When I am on the entries page
+    When I follow "comment"
+    Then the "new comment" field should be visible
+    When I follow "comment"
+    Then the "new comment" field should not be visible
+
+  @javascript
   Scenario: Add comments to entry
     Given the following entries:
       | content    |
