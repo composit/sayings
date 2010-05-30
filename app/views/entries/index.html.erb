@@ -1,4 +1,4 @@
-<%= link_to "new entry", new_entry_path if( can? :create, Entry ) %>
+<%= link_to "new entry", new_entry_path if( can?( :create, Entry ) ) %>
 
 <% for entry in @entries %>
   <div class="entry">
@@ -16,7 +16,11 @@
         <% end %>
       </div>
       <% entry.comments.reverse.each do |comment| %>
-        <p><%= comment.content %></p>
+        <div><%= comment.content %></div>
+        <% if( can?( :create, comment.new_exchange ) ) %>
+          <div><%= link_to "add response", new_exchange_path( :comment_id => comment.id ) %></div>
+        <% end %>
+        <div>
       <% end %>
     </div>
   </div>

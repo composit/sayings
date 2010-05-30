@@ -19,4 +19,18 @@ describe User do
     user.errors.length.should eql( 1 )
     user.errors[:website_url].should include( "is not formatted properly or is not responding." )
   end
+
+  it "should have exchanges" do
+    user = Factory.build( :user )
+    exchange_1 = Factory( :exchange )
+    exchange_2 = Factory( :exchange )
+    exchange_1.users << user
+    exchange_1.save
+    exchange_2.users << user
+    exchange_2.users << Factory( :user )
+    exchange_2.save
+    user.exchanges.length.should eql( 2 )
+    user.exchanges.should include( exchange_1 )
+    user.exchanges.should include( exchange_2 )
+  end
 end

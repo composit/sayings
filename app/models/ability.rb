@@ -9,5 +9,8 @@ class Ability
       EXCHANGE_STARTERS.empty? ? !user.new_record? : EXCHANGE_STARTERS.include?( user.username )
     end
     can :create, Comment
+    can :create, Exchange do |exchange|
+      exchange.users.include?( user )
+    end
   end
 end
