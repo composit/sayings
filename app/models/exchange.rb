@@ -13,7 +13,7 @@ class Exchange
   before_validate :set_user_ids
 
   def users
-    @users ||= User.where( :_id.in => user_ids )
+    @users ||= User.where( :_id.in => user_ids ).to_a
   end
 
   protected

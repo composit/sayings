@@ -1,5 +1,14 @@
-class Reply < Entry
+class Reply
   include Mongoid::Document
+  include Mongoid::Timestamps
 
-  # embedded_in :exchange, :inverse_of => :replies
+  field :user_id
+  field :content
+
+  index :created_at
+
+  belongs_to_related :user
+  embeds_many :comments
+
+  embedded_in :exchange, :inverse_of => :replies
 end

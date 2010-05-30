@@ -8,6 +8,13 @@ describe Comment do
     comment.should be_valid
   end
 
+  it "should require the existence of a user" do
+    comment = Factory.build( :entry, :user_id => nil )
+    comment.should_not be_valid
+    comment.errors[:user_id].length.should eql( 1 )
+    comment.errors[:user_id].should include( "can't be blank" )
+  end
+
   it "should create a new exchange with two replies and users" do
     user_1 = Factory( :user )
     user_2 = Factory( :user )
@@ -16,7 +23,17 @@ describe Comment do
     entry.comments << comment
     entry.save
     exchange = comment.new_exchange
-    exchange.users.to_a.should eql( [ user_1, user_2 ] )
+    exchange.users.should eql( [ user_1, user_2 ] )
     exchange.replies.collect { |reply| reply.content }.should eql( [ "entry content", "comment content" ] )
+  end
+
+  it "should create a new exchange with reply timestamps that match the original entries" do
+    entry = Factory( :entry )
+    comment = Factory.build( :comment )
+    entry.comments << comment
+    entry.save
+    exchange = comment.new_exchange
+    exchange.replies.all[0].created_at.should eql( entry.created_at )
+    exchange.replies.all[1].created_at.should eql( comment.created_at )
   end
 end

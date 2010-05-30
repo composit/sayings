@@ -4,6 +4,7 @@ Sayings::Application.routes.draw do |map|
   resources :entries do
     resources :comments
   end
+  resources :exchanges
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

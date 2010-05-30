@@ -10,6 +10,9 @@ class Ability
     end
     can :create, Comment
     can :create, Exchange do |exchange|
+      exchange.users.first == user
+    end
+    can :update, Exchange do |exchange|
       exchange.users.include?( user )
     end
   end

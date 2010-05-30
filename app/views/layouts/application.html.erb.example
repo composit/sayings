@@ -9,12 +9,12 @@
   <%= csrf_meta_tag %>
 </head>
 <body>
-<div id="notice"><%= flash[:notice] %></div>
-<div id="alert"><%= flash[:alert] %></div>
+<div id="notice"><%= notice %></div>
+<div id="alert"><%= alert %></div>
 <% if( user_signed_in? ) %>
-  <%= link_to 'Logout', destroy_user_session_path %>
+  <%= link_to "Logout", destroy_user_session_path %>
 <% else %>
-  <%= link_to 'Login', new_user_session_path %>
+  <%= link_to "Login", new_user_session_path %>
 <% end %>
 
 <%= yield %>

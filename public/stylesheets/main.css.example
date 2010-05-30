@@ -44,3 +44,21 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+
+div.input-row {
+  overflow: auto;
+  width: 100%;
+  }
+
+  div.input-row div.input-label {
+    width: 200px;
+    float: left;
+  }
+
+  div.input-row div.input-field {
+    float: left;
+  }
+
+.not-shown {
+  display: none;
+}

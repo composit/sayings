@@ -2,7 +2,8 @@ class CommentsController < ApplicationController
   load_and_authorize_resource
 
   def create
-    @comment.entry = Entry.find( params[:entry_id] )
+    @comment.commentable = Entry.find( params[:entry_id] )
+    @comment.user = current_user
     if( @comment.save )
       redirect_to entries_path, :notice => "Comment was successfully created"
     else
