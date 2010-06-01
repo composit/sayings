@@ -5,10 +5,6 @@ describe Exchange do
     Factory( :exchange ).should be_valid
   end
 
-  it "should update the updated_at field when a reply is updated" do
-    pending
-  end
-
   it "should add users" do
     user_1 = Factory( :user )
     user_2 = Factory( :user )
@@ -30,5 +26,16 @@ describe Exchange do
     exchange.users.delete( user_1 )
     exchange.save
     Exchange.where( :_id => exchange.id ).first.users.should eql( [user_2] )
+  end
+
+  it "should create responses via nested attributes" do
+    user = Factory( :user )
+    exchange = Factory( :exchange )
+    exchange.users << user
+    exchange.save
+    exchange.update_attributes( :responses_attributes => [{ :content => "this is a test", :user_id => user.id }] )
+    exchange.responses.length.should eql( 1 )
+    exchange.responses.first.content.should eql( "this is a test" )
+    exchange.responses.first.user_id.should eql( user.id )
   end
 end

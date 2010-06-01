@@ -1,5 +1,5 @@
 $( document ).ready( function() {
-  $( "a.comment" ).click( function() {
+  $( "a.show-field" ).click( function() {
     $(this).next().toggle("slow");
     return false;
   });

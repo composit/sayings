@@ -10,7 +10,7 @@ class User
   field :website_url
 
   has_many_related :entries
-  has_many_related :replies
+  has_many_related :responses
   has_many_related :comments
 
   validates :website_url, :allow_blank => true, :url_exists => true

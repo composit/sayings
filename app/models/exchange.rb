@@ -7,7 +7,7 @@ class Exchange
 
   index :user_ids
 
-  embeds_many :replies
+  embeds_many :responses
   belongs_to_related :comment
 
   before_validate :set_user_ids
@@ -16,8 +16,17 @@ class Exchange
     @users ||= User.where( :_id.in => user_ids ).to_a
   end
 
+  def responses_attributes=( attributes_array )
+    # until mongoid supports accepts_nested_attributes_for fully
+    attributes_array.each do |response_attributes|
+      response = Response.new( response_attributes )
+      self.responses << response
+      response.save
+    end
+  end
+
   protected
     def set_user_ids
-      self.user_ids = users.collect { |user| user.id }
+      self.user_ids = users.uniq.compact.collect { |user| user.id }
     end
 end

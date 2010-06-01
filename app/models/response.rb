@@ -1,4 +1,4 @@
-class Reply
+class Response
   include Mongoid::Document
   include Mongoid::Timestamps
 
@@ -10,5 +10,8 @@ class Reply
   belongs_to_related :user
   embeds_many :comments
 
-  embedded_in :exchange, :inverse_of => :replies
+  embedded_in :exchange, :inverse_of => :responses
+
+  validates :user_id, :presence => true
+  validates_with AllowsCommentsValidator
 end
