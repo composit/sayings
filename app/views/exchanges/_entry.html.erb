@@ -1,0 +1,38 @@
+<div class="entry" id="entry-<%= entry.id %>">
+  <%= format_content( entry.content ) %>
+  <div class="entry-footer"><%= entry.user.username %> - <%= entry.created_at.strftime( "%m.%d.%Y" ) %></div>
+  <div class="comments">
+    <%= link_to "comment", "#", :class => ( user_signed_in? ? "show-field" : "login" ) %>
+    <div id="new-comment-#{entry.id}" class="not-shown">
+      <%= form_for( [( entry.respond_to?( :exchange ) ? entry.exchange : nil ), entry, Comment.new] ) do |f| %>
+        <%= f.label :content, "new comment" %><br />
+        <%= f.text_area :content, :cols => 60, :rows => 4 %>
+        <%= f.submit %>
+      <% end %>
+    </div>
+    <% entry.comments.reverse.each do |comment| %>
+      <div class="comment">
+        <%= comment.content %> - <%= comment.user.username %> - <%= comment.created_at.strftime( "%m.%d.%Y" ) %>
+        <% unless( comment.exchange.nil? ) %>
+          <%= link_to "view exchange", comment.exchange %>
+        <% else %>
+          <% if( can?( :create, comment.new_exchange ) ) %>
+            <%= link_to "respond", "#", :class => "show-field" %>
+            <div id="new-response-#{comment.id}" class="not-shown">
+              <%= form_for( comment.new_exchange ) do |f| %>
+                <%= fields_for( "exchange[responses_attributes][]", comment.new_exchange.responses.build ) do |response| %>
+                  <%= response.label :content, "response" %><br />
+                  <%= response.text_area :content, :cols => 60, :rows => 4 %>
+                  <%= response.hidden_field :user_id, :value => current_user.id %>
+                <% end  %>
+                <%= hidden_field_tag :entry_id, entry.id %>
+                <%= hidden_field_tag :comment_id, comment.id %>
+                <%= f.submit %>
+              <% end %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

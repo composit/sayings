@@ -1,6 +1,1 @@
-<% for response in @exchange.responses %>
-  <div class="entry">
-    <%= format_content( response.content ) %>
-    <div class="entry-footer"><%= response.user.username %> - <%= response.created_at.strftime( "%m.%d.%Y" ) %></div>
-  </div>
-<% end %>
+<%= render( :partial => "entry", :collection => @exchange.responses ) %>

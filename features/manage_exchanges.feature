@@ -54,3 +54,22 @@ Feature: Manage exchanges
     And I press "Create Exchange"
     And I follow "view exchange"
     Then I should see "have a great day!"
+
+  Scenario: no comments for initial response in an exchange
+    pending
+
+  @javascript
+  Scenario: add comments to responses
+    Given the following responses in a single exchange:
+      | user_username | content   |
+      | person        | Test      |
+      | other         | Also test |
+      | person        | I concur  |
+    When I am a logged in user called "Link"
+    And I am on the exchange page
+    And I follow "comment" for the "Also test" response
+    And I fill in "new comment" with "Me too!" for the "Also test" response
+    And I press "Create Comment" for the "Also test" response
+    Then I should be on the exchange page
+    And I should see "Me too!"
+    And I should see "Link - "
