@@ -9,23 +9,23 @@
       <div id="new-comment-#{entry.id}" class="not-shown">
         <%= form_for( [entry, Comment.new] ) do |f| %>
           <%= f.label :content, "new comment" %><br />
-          <%= f.text_area :content %>
+          <%= f.text_area :content, :cols => 60, :rows => 4 %>
           <%= f.submit %>
         <% end %>
       </div>
       <% entry.comments.reverse.each do |comment| %>
-        <div><%= comment.content %></div>
-        <% unless( comment.exchange.nil? ) %>
-          <%= link_to "view exchange", comment.exchange %>
-        <% else %>
-          <% if( can?( :create, comment.new_exchange ) ) %>
-            <div class="response">
+        <div class="comment">
+          <%= comment.content %> - <%= comment.user.username %> - <%= comment.created_at.strftime( "%m.%d.%Y" ) %>
+          <% unless( comment.exchange.nil? ) %>
+            <%= link_to "view exchange", comment.exchange %>
+          <% else %>
+            <% if( can?( :create, comment.new_exchange ) ) %>
               <%= link_to "respond", "#", :class => "show-field" %>
               <div id="new-response-#{comment.id}" class="not-shown">
                 <%= form_for( comment.new_exchange ) do |f| %>
                   <%= fields_for( "exchange[responses_attributes][]", comment.new_exchange.responses.build ) do |response| %>
                     <%= response.label :content, "response" %><br />
-                    <%= response.text_area :content %>
+                    <%= response.text_area :content, :cols => 60, :rows => 4 %>
                     <%= response.hidden_field :user_id, :value => current_user.id %>
                   <% end  %>
                   <%= hidden_field_tag :entry_id, entry.id %>
@@ -33,9 +33,9 @@
                   <%= f.submit %>
                 <% end %>
               </div>
-            </div>
+            <% end %>
           <% end %>
-        <% end %>
+        </div>
       <% end %>
     </div>
   </div>
