@@ -8,7 +8,7 @@ class CommentsController < ApplicationController
       @comment.commentable = Entry.find( params[:entry_id] )
     end
     @comment.user = current_user
-    follow_up_path = ( @comment.commentable.class == "Entry" ? entries_path : exchange_path( @comment.commentable.exchange ) )
+    follow_up_path = ( @comment.commentable.class == Entry ? entries_path : exchange_path( @comment.commentable.exchange ) )
     if( @comment.save )
       redirect_to follow_up_path, :notice => "Comment was successfully created"
     else
