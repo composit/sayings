@@ -1,0 +1,3 @@
+<%= link_to "new entry", new_exchange_path if( can?( :create, Entry ) ) %>
+
+<%= render( :partial => "entry", :collection => @exchanges.collect { |exchange| exchange.entries.first } ) %>

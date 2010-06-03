@@ -11,4 +11,9 @@ class Entry
   embeds_many :comments
 
   validates :user_id, :presence => true
+
+  embedded_in :exchange, :inverse_of => :entries
+
+  validates :user_id, :presence => true
+  validates_with AllowsCommentsValidator
 end

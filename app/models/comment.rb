@@ -7,7 +7,7 @@ class Comment
 
   belongs_to_related :user
   has_one_related :exchange
-  embedded_in :commentable, :inverse_of => :comments
+  embedded_in :entry, :inverse_of => :comments
 
   validates :user_id, :presence => true
 
@@ -18,13 +18,13 @@ class Comment
   private
     def build_new_exchange
       exch = self.exchange.build
-      exch.users << commentable.user
+      exch.users << entry.user
       exch.users << user
      
-      entry_response = Response.new( :user_id => commentable.user_id, :content => commentable.content, :created_at => commentable.created_at, :updated_at => commentable.updated_at )
-      comment_response = Response.new( :user_id => user_id, :content => content, :created_at => created_at, :updated_at => updated_at )
-      exchange.responses << entry_response
-      exchange.responses << comment_response
+      entry_1 = Entry.new( :user_id => entry.user_id, :content => entry.content, :created_at => entry.created_at, :updated_at => entry.updated_at )
+      entry_2 = Entry.new( :user_id => user_id, :content => content, :created_at => created_at, :updated_at => updated_at )
+      exch.entries << entry_1
+      exch.entries << entry_2
       exch
     end
 end

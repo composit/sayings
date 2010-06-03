@@ -18,12 +18,12 @@
         <% else %>
           <% if( can?( :create, comment.new_exchange ) ) %>
             <%= link_to "respond", "#", :class => "show-field" %>
-            <div id="new-response-#{comment.id}" class="not-shown">
+            <div id="new-entry-#{comment.id}" class="not-shown">
               <%= form_for( comment.new_exchange ) do |f| %>
-                <%= fields_for( "exchange[responses_attributes][]", comment.new_exchange.responses.build ) do |response| %>
-                  <%= response.label :content, "response" %><br />
-                  <%= response.text_area :content, :cols => 60, :rows => 4 %>
-                  <%= response.hidden_field :user_id, :value => current_user.id %>
+                <%= f.fields_for( comment.new_exchange.entries.build ) do |entry| %>
+                  <%= entry.label :content, "response" %><br />
+                  <%= entry.text_area :content, :cols => 60, :rows => 4 %>
+                  <%= entry.hidden_field :user_id, :value => current_user.id %>
                 <% end  %>
                 <%= hidden_field_tag :entry_id, entry.id %>
                 <%= hidden_field_tag :comment_id, comment.id %>
