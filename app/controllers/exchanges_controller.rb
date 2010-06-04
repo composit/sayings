@@ -13,6 +13,7 @@ class ExchangesController < ApplicationController
   def show
     authorize! :read, Exchange
     @exchange = Exchange.find( params[:id] )
+    @exchange.entries.each { |entry| puts "controller entry: #{entry.content} - #{entry.comments.length}" }
   end
 
   def create

@@ -33,7 +33,7 @@ describe Exchange do
     exchange = Factory( :exchange )
     exchange.users << user
     exchange.save
-    exchange.update_attributes( :entry => { :content => "this is a test", :user_id => user.id } )
+    exchange.update_attributes( :entries_attributes => [{ :content => "this is a test", :user_id => user.id }] )
     exchange.entries.length.should eql( 1 )
     exchange.entries.first.content.should eql( "this is a test" )
     exchange.entries.first.user_id.should eql( user.id )

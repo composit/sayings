@@ -5,10 +5,11 @@ Given /^the following comments:$/ do |table|
       hash.merge!( { "user_id" => user.id } ).delete( "user_username" )
     end
     if( hash["entry_content"] )
-      entry = Factory( :entry, :content => hash["entry_content"] ) unless( entry = Entry.where( :content => hash["entry_content"] ).first )
+      entry = Factory( :entry, :content => hash["entry_content"] ) unless( @exchange && entry = @exchange.entries.where( :content => hash["entry_content"] ).first )
       hash.delete( "entry_content" )
       entry.comments << Factory.build( :comment, hash )
       entry.save
     end
   end
+  @exchange.entries.each { |entry| puts "entry: #{entry.content} - #{entry.comments.length}" }
 end
