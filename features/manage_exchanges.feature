@@ -34,7 +34,7 @@ Feature: Manage exchanges
     And I follow "respond"
     And I fill in "response" with "have a great day!"
     And I press "Create Exchange"
-    Then I should see "Response was successfully created"
+    Then I should see "Entry was successfully created"
     And I should see "view exchange"
     When I follow "view exchange"
     Then I should see "have a great day!"

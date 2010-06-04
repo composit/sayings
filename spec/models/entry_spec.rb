@@ -11,4 +11,16 @@ describe Entry do
     entry.errors[:user_id].length.should eql( 1 )
     entry.errors[:user_id].should include( "can't be blank" )
   end
+
+  it "should not be allowed comments if it is the initial entry in an exchange associated with a comment" do
+    exchange = Factory( :exchange )
+    first_entry = exchange.entries.build( :user_id => User.create.id )
+    second_entry = exchange.entries.build( :user_id => User.create.id )
+    first_entry.comments.build
+    second_entry.comments.build
+    exchange.save
+    first_entry.errors.length.should eql( 1 )
+    first_entry.errors[:base].should include( "Comments are not allowed for this record" )
+    second_entry.errors.length.should eql( 0 )
+  end
 end

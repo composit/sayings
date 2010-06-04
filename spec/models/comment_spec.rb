@@ -15,7 +15,7 @@ describe Comment do
     comment.errors[:user_id].should include( "can't be blank" )
   end
 
-  it "should create a new exchange with two responses and users" do
+  it "should create a new exchange with two entries and users" do
     user_1 = Factory( :user )
     user_2 = Factory( :user )
     entry = Factory( :entry, :content => "entry content", :user_id => user_1.id )
@@ -24,16 +24,16 @@ describe Comment do
     entry.save
     exchange = comment.new_exchange
     exchange.users.should eql( [ user_1, user_2 ] )
-    exchange.responses.collect { |response| response.content }.should eql( [ "entry content", "comment content" ] )
+    exchange.entries.collect { |entry| entry.content }.should eql( [ "entry content", "comment content" ] )
   end
 
-  it "should create a new exchange with response timestamps that match the original entries" do
+  it "should create a new exchange with entry timestamps that match the original entries" do
     entry = Factory( :entry )
     comment = Factory.build( :comment )
     entry.comments << comment
     entry.save
     exchange = comment.new_exchange
-    exchange.responses.all[0].created_at.should eql( entry.created_at )
-    exchange.responses.all[1].created_at.should eql( comment.created_at )
+    exchange.entries.all[0].created_at.should eql( entry.created_at )
+    exchange.entries.all[1].created_at.should eql( comment.created_at )
   end
 end

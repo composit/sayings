@@ -28,14 +28,14 @@ describe Exchange do
     Exchange.where( :_id => exchange.id ).first.users.should eql( [user_2] )
   end
 
-  it "should create responses via nested attributes" do
+  it "should create entries via nested attributes" do
     user = Factory( :user )
     exchange = Factory( :exchange )
     exchange.users << user
     exchange.save
-    exchange.update_attributes( :responses_attributes => [{ :content => "this is a test", :user_id => user.id }] )
-    exchange.responses.length.should eql( 1 )
-    exchange.responses.first.content.should eql( "this is a test" )
-    exchange.responses.first.user_id.should eql( user.id )
+    exchange.update_attributes( :entry => { :content => "this is a test", :user_id => user.id } )
+    exchange.entries.length.should eql( 1 )
+    exchange.entries.first.content.should eql( "this is a test" )
+    exchange.entries.first.user_id.should eql( user.id )
   end
 end
