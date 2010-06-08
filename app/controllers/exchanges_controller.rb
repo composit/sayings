@@ -1,7 +1,7 @@
 class ExchangesController < ApplicationController
   def index
     authorize! :read, Exchange
-    @exchanges = Exchange.order_by( [:created_at, :desc] )
+    @exchanges = Exchange.top_level.order_by( [:most_recent_entry_date, :desc] )
   end
 
   def new
@@ -13,12 +13,11 @@ class ExchangesController < ApplicationController
   def show
     authorize! :read, Exchange
     @exchange = Exchange.find( params[:id] )
-    @exchange.entries.each { |entry| puts "controller entry: #{entry.content} - #{entry.comments.length}" }
   end
 
   def create
-    if( params[:comments_id] )
-      @exchange = Entry.find( params[:entry_id] ).comments.find( params[:comment_id] ).new_exchange
+    if( params[:comment_id] )
+      @exchange = Exchange.find( params[:exchange_id] ).entries.find( params[:entry_id] ).comments.find( params[:comment_id] ).new_exchange
     else
       @exchange = Exchange.new
       @exchange.users << current_user

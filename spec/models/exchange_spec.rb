@@ -38,4 +38,25 @@ describe Exchange do
     exchange.entries.first.content.should eql( "this is a test" )
     exchange.entries.first.user_id.should eql( user.id )
   end
+
+  it "should set the most recent entry date" do
+    exchange = Factory( :exchange )
+    entry = Factory( :entry, :created_at => "2005-05-05", :exchange => exchange )
+    exchange.most_recent_entry_date.strftime( "%Y-%m-%d" ).should eql( "2005-05-05" )
+  end
+
+  it "should not override the most recent entry with older dates" do
+    exchange = Factory( :exchange )
+    Factory( :entry, :created_at => "2005-05-05", :exchange => exchange )
+    Factory( :entry, :created_at => "2001-01-01", :exchange => exchange )
+    exchange.most_recent_entry_date.strftime( "%Y-%m-%d" ).should eql( "2005-05-05" )
+  end
+
+  it "should override the most recent entry with newer dates" do
+    exchange = Factory( :exchange )
+    Factory( :entry, :created_at => "2009-09-09", :exchange => exchange )
+    Factory( :entry, :created_at => "2005-05-05", :exchange => exchange )
+    Factory( :entry, :created_at => "2001-01-01", :exchange => exchange )
+    exchange.most_recent_entry_date.strftime( "%Y-%m-%d" ).should eql( "2009-09-09" )
+  end
 end

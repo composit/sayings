@@ -18,10 +18,21 @@ Rspec.configure do |config|
   # config.mock_with :rr
   config.mock_with :rspec
 
-  # If you'd prefer not to run each of your examples within a transaction,
-  # uncomment the following line.
-  # config.use_transactional_examples = false
+  config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
-  config.before( :all ) { Mongoid.database.collections.each( &:drop ) }
-  config.after( :all ) { Mongoid.database.collections.each( &:drop ) }
+  # If you're not using ActiveRecord, or you'd prefer not to run each of your
+  # examples within a transaction, comment the following line or assign false
+  # instead of true.
+  # config.use_transactional_fixtures = true
+
+  config.before( :all ) do
+    Mongoid.database.collection( :users ).drop
+    Mongoid.database.collection( :exchange ).drop
+  end
+  config.after( :all ) do
+    Mongoid.database.collection( :users ).drop
+    Mongoid.database.collection( :exchange ).drop
+  end
+  #config.before( :all ) { Mongoid.database.collections.each( &:drop ) }
+  #config.after( :all ) { Mongoid.database.collections.each( &:drop ) }
 end

@@ -2,14 +2,17 @@
   <%= format_content( entry.content ) %>
   <div class="entry-footer"><%= entry.user.username %> - <%= entry.created_at.strftime( "%m.%d.%Y" ) %></div>
   <div class="comments">
-    <%= link_to "comment", "#", :class => ( user_signed_in? ? "show-field" : "login" ) %>
-    <div id="new-comment-#{entry.id}" class="not-shown">
-      <%= form_for( [( entry.respond_to?( :exchange ) ? entry.exchange : nil ), entry, Comment.new] ) do |f| %>
-        <%= f.label :content, "new comment" %><br />
-        <%= f.text_area :content, :cols => 60, :rows => 4 %>
-        <%= f.submit %>
-      <% end %>
-    </div>
+    <% if( @exchange && @exchange.entries.order_by( :created_at ).first == entry ) %>
+    <% else %>
+      <%= link_to "comment", "#", :class => ( user_signed_in? ? "show-field" : "login" ) %>
+      <div id="new-comment-#{entry.id}" class="not-shown">
+        <%= form_for( [( entry.respond_to?( :exchange ) ? entry.exchange : nil ), entry, Comment.new] ) do |f| %>
+          <%= f.label :content, "new comment" %><br />
+          <%= f.text_area :content, :cols => 60, :rows => 4 %>
+          <%= f.submit %>
+        <% end %>
+      </div>
+    <% end %>
     <% entry.comments.reverse.each do |comment| %>
       <div class="comment">
         <%= comment.content %> - <%= comment.user.username %> - <%= comment.created_at.strftime( "%m.%d.%Y" ) %>
@@ -20,11 +23,12 @@
             <%= link_to "respond", "#", :class => "show-field" %>
             <div id="new-entry-#{comment.id}" class="not-shown">
               <%= form_for( comment.new_exchange ) do |f| %>
-                <%= f.fields_for( comment.new_exchange.entries.build ) do |entry| %>
-                  <%= entry.label :content, "response" %><br />
-                  <%= entry.text_area :content, :cols => 60, :rows => 4 %>
-                  <%= entry.hidden_field :user_id, :value => current_user.id %>
-                <% end  %>
+                <%= f.fields_for( comment.new_exchange.entries.build ) do |new_entry| %>
+                  <%= new_entry.label :content, "response" %><br />
+                  <%= new_entry.text_area :content, :cols => 60, :rows => 4 %>
+                  <%= new_entry.hidden_field :user_id, :value => current_user.id %>
+                <% end %>
+                <%= hidden_field_tag :exchange_id, entry.exchange.id %>
                 <%= hidden_field_tag :entry_id, entry.id %>
                 <%= hidden_field_tag :comment_id, comment.id %>
                 <%= f.submit %>

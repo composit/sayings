@@ -4,6 +4,8 @@ Given /^the following entries:$/ do |table|
       user = User.where( :username => hash["user_username"] ).first || Factory( :user, :username => hash["user_username"] )
       hash.merge!( { "user_id" => user.id } ).delete( "user_username" )
     end
+    exchange = Factory.build( :exchange )
+    hash.merge!( { :exchange => exchange } )
     Factory( :entry, hash )
   end
 end
@@ -16,7 +18,7 @@ Given /^the following entries in a single exchange:$/ do |table|
     exchange.save
     hash.merge!( { "user_id" => user.id, :exchange => exchange } ).delete( "user_username" )
     entry = Factory.build( :entry, hash )
-    entry.save
+    entry.save!
     @exchange = Exchange.find( exchange.id )
   end
 end
@@ -35,9 +37,23 @@ Given /^I fill in "([^\"]*)" with "([^\"]*)" for the "([^\"]*)" entry$/ do |fiel
   end
 end
 
-Given /^I press "([^\"]*)" for the "([^\"]*)" entry$/ do |button, entry_content|
+Given /^I press "([^"]*)" for the "([^\"]*)" entry$/ do |button, entry_content|
   entry = @exchange.entries.where( :content => entry_content ).first
   with_scope( "//div[@id='entry-#{entry.id}']" ) do
     click_button( button )
+  end
+end
+
+Then /^I should see "([^"]*)" for the "([^"]*)" entry$/ do |text, entry_content|
+  entry = @exchange.entries.where( :content => entry_content ).first
+  with_scope( "//div[@id='entry-#{entry.id}']" ) do
+    page.should have_content( text )
+  end
+end
+
+Then /^I should not see "([^"]*)" for the "([^"]*)" entry$/ do |text, entry_content|
+  entry = @exchange.entries.where( :content => entry_content ).first
+  with_scope( "//div[@id='entry-#{entry.id}']" ) do
+    page.should_not have_content( text )
   end
 end

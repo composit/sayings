@@ -4,6 +4,7 @@ class Exchange
 
   field :comment_id
   field :user_ids, :type => Array, :default => []
+  field :most_recent_entry_date, :type => DateTime, :default => Time.now
 
   index :user_ids
 
@@ -11,6 +12,8 @@ class Exchange
   belongs_to_related :comment
 
   before_validate :set_user_ids
+
+  named_scope :top_level, :where => { :comment_id => nil }
 
   def users
     @users ||= User.where( :_id.in => user_ids ).to_a

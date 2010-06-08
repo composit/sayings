@@ -1,3 +1,0 @@
-<%= link_to "new entry", new_entry_path if( can?( :create, Entry ) ) %>
-
-<%= render( :partial => "/exchanges/entry", :collection => @entries ) %>

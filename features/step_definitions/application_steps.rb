@@ -24,3 +24,8 @@ Then /^I should see the following text in order:$/ do |table|
   #all( "//div[@class='entry']/p" ).each_with_index { |entry, index| entry.text.should include( table.hashes[index]["content"] ) }
   page.body.should match( Regexp.new( table.hashes.collect { |hash| hash["text"] }.join( "(.*)" ), Regexp::MULTILINE ) )
 end
+
+Then /^I should only see "(.*)" once$/ do |text|
+  page.body.should match( text )
+  page.body.should_not match( Regexp.new( "#{text}(.*)#{text}", Regexp::MULTILINE ) )
+end

@@ -16,10 +16,8 @@ module NavigationHelpers
     #
     #   when /^(.*)'s profile page$/i
     #     user_profile_path(User.find_by_login($1))
-    
+
     when /^the exchange page$/
-      @exchange = Exchange.find( @exchange.id )
-      @exchange.entries.each { |entry| puts "path entry: #{entry.content} - #{entry.comments.length}" }
       exchange_path( @exchange )
 
     else

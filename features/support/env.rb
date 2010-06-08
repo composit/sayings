@@ -58,5 +58,6 @@ if defined?(ActiveRecord::Base)
   end
 end
 Before do
-  Mongoid.master.collections.each(&:drop)
+  Mongoid.master.collection(:users).drop
+  Mongoid.master.collection(:exchanges).drop
 end
