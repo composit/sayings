@@ -18,11 +18,15 @@ describe Comment do
   it "should create a new exchange with two entries and users" do
     user_1 = Factory( :user, :username => "User first" )
     user_2 = Factory( :user, :username => "User second" )
-    entry = Factory.build( :entry, :content => "entry content", :user_id => user_1.id, :exchange => Factory( :exchange ) )
-    comment = Factory( :comment, :content => "comment content", :user_id => user_2.id, :entry => entry )
-    exchange = comment.new_exchange
+    top_exchange = Factory( :exchange )
+    top_entry = Factory.build( :entry, :content => "entry content", :user_id => user_1.id, :exchange => top_exchange )
+    top_comment = Factory( :comment, :content => "comment content", :user_id => user_2.id, :entry => top_entry )
+    exchange = top_comment.new_exchange
     exchange.users.should eql( [ user_1, user_2 ] )
     exchange.entries.collect { |entry| entry.content }.should eql( [ "entry content", "comment content" ] )
+    exchange.parent_exchange.should eql( top_exchange )
+    exchange.parent_entry_id.should eql( top_entry.id )
+    exchange.parent_comment_id.should eql( top_comment.id )
   end
 
   it "should create a new exchange with entry timestamps that match the original entries" do
@@ -31,5 +35,13 @@ describe Comment do
     exchange = comment.new_exchange
     exchange.entries.all[0].created_at.should eql( entry.created_at )
     exchange.entries.all[1].created_at.should eql( comment.created_at )
+  end
+
+  it "should recognize child exchanges" do
+    entry = Factory.build( :entry )
+    comment = Factory( :comment, :entry => entry )
+    exchange = comment.new_exchange
+    exchange.save!
+    comment.child_exchange.should eql( exchange )
   end
 end

@@ -41,8 +41,9 @@ Feature: Manage comments
   Scenario: Entry comments default to reverse the order they were entered in after their entry
     Given the following entries in a single exchange:
       | content             | created_at |
-      | Here's some content | 2002-02-02 |
-      | Words about topics  | 2001-01-01 |
+      | Here's some content | 2003-03-03 |
+      | Initial entry       | 2001-01-01 |
+      | Words about topics  | 2002-02-02 |
     And the following comments:
       | entry_content       | content     |
       | Words about topics  | howdy       |
@@ -53,12 +54,13 @@ Feature: Manage comments
     When I am on the exchange page
     Then I should see the following text in order:
       | text                |
+      | Initial entry       |
+      | Words about topics  |
+      | howdy               |
       | Here's some content |
       | pretty good         |
       | great               |
       | super               |
-      | Words about topics  |
-      | howdy               |
 
   @javascript
   Scenario: clicking comments when not signed in redirects to the login page

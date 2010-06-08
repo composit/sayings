@@ -7,7 +7,7 @@ Given /^the following comments:$/ do |table|
     if( hash["entry_content"] )
       entry = Factory.build( :entry, :content => hash["entry_content"] ) unless( @exchange && entry = @exchange.entries.where( :content => hash["entry_content"] ).first )
       hash.merge!( { :entry => entry } ).delete( "entry_content" )
-      Factory( :comment, hash )
+      @comment = Factory( :comment, hash )
     end
   end
 end

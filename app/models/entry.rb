@@ -20,6 +20,6 @@ class Entry
   protected
     def set_exchange_date
       exchange.reload
-      exchange.update_attributes!( :most_recent_entry_date => exchange.entries.order_by( :created_at ).last.created_at )
+      exchange.update_attributes!( :most_recent_entry_date => exchange.entries.all.sort { |x,y| y.created_at <=> x.created_at }[0].created_at )
     end
 end

@@ -15,9 +15,13 @@ class Comment
     @new_exchange ||= build_new_exchange
   end
 
+  def child_exchange
+    Exchange.where( :parent_comment_id => id ).first
+  end
+
   private
     def build_new_exchange
-      exch = self.exchange.build
+      exch = Exchange.new( :parent_comment_id => id, :parent_entry_id => entry.id, :parent_exchange_id => entry.exchange.id )
       exch.users << entry.user
       exch.users << user
      

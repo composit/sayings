@@ -2,7 +2,13 @@
   <%= format_content( entry.content ) %>
   <div class="entry-footer"><%= entry.user.username %> - <%= entry.created_at.strftime( "%m.%d.%Y" ) %></div>
   <div class="comments">
-    <% if( @exchange && @exchange.entries.order_by( :created_at ).first == entry ) %>
+    <% if( @exchange && @exchange.entries.sort { |x,y| x.created_at <=> y.created_at }[0] == entry ) %>
+      <% if( @exchange.parent_exchange ) %>
+        <%= link_to "up one level", @exchange.parent_exchange %>
+      <% else %>
+        <%= link_to "up one level", exchanges_path %>
+      <% end %>
+      (see this entry in its original context)
     <% else %>
       <%= link_to "comment", "#", :class => ( user_signed_in? ? "show-field" : "login" ) %>
       <div id="new-comment-#{entry.id}" class="not-shown">
@@ -12,31 +18,31 @@
           <%= f.submit %>
         <% end %>
       </div>
-    <% end %>
-    <% entry.comments.reverse.each do |comment| %>
-      <div class="comment">
-        <%= comment.content %> - <%= comment.user.username %> - <%= comment.created_at.strftime( "%m.%d.%Y" ) %>
-        <% unless( comment.exchange.nil? ) %>
-          <%= link_to "view exchange", comment.exchange %>
-        <% else %>
-          <% if( can?( :create, comment.new_exchange ) ) %>
-            <%= link_to "respond", "#", :class => "show-field" %>
-            <div id="new-entry-#{comment.id}" class="not-shown">
-              <%= form_for( comment.new_exchange ) do |f| %>
-                <%= f.fields_for( comment.new_exchange.entries.build ) do |new_entry| %>
-                  <%= new_entry.label :content, "response" %><br />
-                  <%= new_entry.text_area :content, :cols => 60, :rows => 4 %>
-                  <%= new_entry.hidden_field :user_id, :value => current_user.id %>
+      <% entry.comments.reverse.each do |comment| %>
+        <div class="comment">
+          <%= comment.content %> - <%= comment.user.username %> - <%= comment.created_at.strftime( "%m.%d.%Y" ) %>
+          <% unless( comment.child_exchange.nil? ) %>
+            <%= link_to "view exchange", comment.child_exchange %>
+          <% else %>
+            <% if( can?( :create, comment.new_exchange ) ) %>
+              <%= link_to "respond", "#", :class => "show-field" %>
+              <div id="new-entry-#{comment.id}" class="not-shown">
+                <%= form_for( comment.new_exchange ) do |f| %>
+                  <%= f.fields_for( comment.new_exchange.entries.build ) do |new_entry| %>
+                    <%= new_entry.label :content, "response" %><br />
+                    <%= new_entry.text_area :content, :cols => 60, :rows => 4 %>
+                    <%= new_entry.hidden_field :user_id, :value => current_user.id %>
+                  <% end %>
+                  <%= hidden_field_tag :exchange_id, entry.exchange.id %>
+                  <%= hidden_field_tag :entry_id, entry.id %>
+                  <%= hidden_field_tag :comment_id, comment.id %>
+                  <%= f.submit %>
                 <% end %>
-                <%= hidden_field_tag :exchange_id, entry.exchange.id %>
-                <%= hidden_field_tag :entry_id, entry.id %>
-                <%= hidden_field_tag :comment_id, comment.id %>
-                <%= f.submit %>
-              <% end %>
-            </div>
+              </div>
+            <% end %>
           <% end %>
-        <% end %>
-      </div>
+        </div>
+      <% end %>
     <% end %>
   </div>
 </div>

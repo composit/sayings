@@ -1,1 +1,1 @@
-<%= render( :partial => "entry", :collection => @exchange.entries ) %>
+<%= render( :partial => "entry", :collection => @exchange.entries.sort { |x,y| x.created_at <=> y.created_at } ) %>
