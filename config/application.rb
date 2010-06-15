@@ -43,9 +43,10 @@ module Sayings
     #   g.test_framework  :test_unit, :fixture => true
     # end
     config.generators do |g|
-      g.orm             :mongoid
-      g.template_engine :erb
-      g.test_framework  :rspec, :fixture => true
+      g.orm                 :mongoid
+      g.template_engine     :erb
+      g.test_framework      :rspec, :fixture => true
+      g.fixture_replacement :factory_girl
     end
 
     # Configure the default encoding used in templates for Ruby 1.9.

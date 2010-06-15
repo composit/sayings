@@ -61,3 +61,4 @@ Before do
   Mongoid.master.collection(:users).drop
   Mongoid.master.collection(:exchanges).drop
 end
+
