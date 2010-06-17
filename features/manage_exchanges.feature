@@ -179,3 +179,54 @@ Feature: Manage exchanges
     Then I should see "Exchange was successfully created"
     When I am on the exchanges page
     Then I should see "Bla bla bla"
+
+  Scenario: Only users associated with the exchange can add a response
+    Given the following entries in a single exchange:
+      | user_username | content |
+      | Link          | Test 1  |
+    When I am on the exchange page
+    Then I should not see "add response"
+    When I am a logged in user called "Mister user"
+    And I am on the exchange page
+    Then I should not see "add response"
+    When I am a logged in user called "Link"
+    And I am on the exchange page
+    Then I should see "add response"
+
+  @javascript
+  Scenario: Add new entries to existing exchanges
+    Given the following entries in a single exchange:
+      | user_username | content |
+      | Link          | Test 1  |
+      | Link          | Test 2  |
+      | Link          | Test 3  |
+    When I am a logged in user called "Link"
+    And I am on the exchange page
+    And I follow "add response"
+    And I fill in "response" with "good hustle, buddy"
+    And I press "Create response"
+    Then I should see "Response was successfully created" 
+    When I am on the exchange page
+    Then I should see "good hustle, buddy"
+
+  @javascript
+  Scenario: Stay on exchange page when adding entries
+    Given the following entries in a single exchange:
+      | user_username | content |
+      | Link          | Test 1  |
+      | Link          | Test 2  |
+      | Link          | Test 3  |
+    When I am a logged in user called "Link"
+    And I am on the exchange page
+    And I follow "add response"
+    And I fill in "response" with "good hustle, buddy"
+    And I press "Create response"
+    Then I should be on the exchange page
+
+  Scenario: Link to user pages from entries
+    Given the following entries in a single exchange:
+      | user_username | content |
+      | Link          | Test 1  |
+    When I am on the exchange page
+    And I follow "Link"
+    Then I should be on the user page for "Link"

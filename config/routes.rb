@@ -1,5 +1,6 @@
 Sayings::Application.routes.draw do |map|
   devise_for :users
+  resources :users
 
   resources :exchanges do
     resources :entries do

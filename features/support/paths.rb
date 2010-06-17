@@ -17,6 +17,12 @@ module NavigationHelpers
     #   when /^(.*)'s profile page$/i
     #     user_profile_path(User.find_by_login($1))
 
+    when /^the exchange page$/
+      exchange_path( @exchange )
+
+    when /^the user page for "([^"]*)"$/
+      user_path( User.where( :username => $1 ).first )
+
     else
       begin
         page_name =~ /the (.*) page/

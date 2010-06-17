@@ -21,7 +21,6 @@ Then /^the "(.*)" field should be visible$/ do |text|
 end
 
 Then /^I should see the following text in order:$/ do |table|
-  #all( "//div[@class='entry']/p" ).each_with_index { |entry, index| entry.text.should include( table.hashes[index]["content"] ) }
   page.body.should match( Regexp.new( table.hashes.collect { |hash| hash["text"] }.join( "(.*)" ), Regexp::MULTILINE ) )
 end
 

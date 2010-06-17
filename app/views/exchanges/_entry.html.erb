@@ -1,8 +1,8 @@
 <div class="entry" id="entry-<%= entry.id %>">
   <%= format_content( entry.content ) %>
-  <div class="entry-footer"><%= entry.user.username %> - <%= entry.created_at.strftime( "%m.%d.%Y" ) %></div>
+  <div class="entry-footer"><%= link_to entry.user.username, entry.user %> - <%= entry.created_at.strftime( "%m.%d.%Y" ) %></div>
   <div class="comments">
-    <% if( @exchange && @exchange.entries.sort { |x,y| x.created_at <=> y.created_at }[0] == entry ) %>
+    <% if( @exchange && @exchange.ordered_entries[0] == entry ) %>
       <% if( @exchange.parent_exchange ) %>
         <%= link_to "up one level", @exchange.parent_exchange %>
       <% else %>
@@ -31,7 +31,6 @@
                   <%= f.fields_for( comment.new_exchange.entries.build ) do |new_entry| %>
                     <%= new_entry.label :content, "response" %><br />
                     <%= new_entry.text_area :content, :cols => 60, :rows => 4 %>
-                    <%= new_entry.hidden_field :user_id, :value => current_user.id %>
                   <% end %>
                   <%= hidden_field_tag :exchange_id, entry.exchange.id %>
                   <%= hidden_field_tag :entry_id, entry.id %>
