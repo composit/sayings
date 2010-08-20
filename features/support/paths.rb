@@ -20,6 +20,9 @@ module NavigationHelpers
     when /^the exchange page$/
       exchange_path( @exchange )
 
+    when /^the user page for "([^"]*)"$/
+      user_path( User.where( :username => $1 ).first )
+
     else
       begin
         page_name =~ /the (.*) page/

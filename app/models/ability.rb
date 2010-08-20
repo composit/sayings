@@ -13,8 +13,9 @@ class Ability
     can :create, Exchange do |exchange|
       exchange.users.first == user
     end
-    can :update, Exchange do |exchange|
+    can :edit, Exchange do |exchange|
       exchange.users.include?( user )
     end
+    can :read, User
   end
 end

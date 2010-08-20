@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-# gem 'rails', '3.0.0.beta3'
+#gem 'rails', '3.0.0.beta4'
 
 # Bundle edge Rails instead:
 gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -41,11 +41,12 @@ group :test do
   gem 'capybara'
   gem 'database_cleaner'
   gem 'cucumber-rails', :git => 'git://github.com/aslakhellesoy/cucumber-rails.git'
-  gem 'rspec', '>=2.0.0.beta.9'
-  gem 'rspec-rails', '>=2.0.0.beta.9'
+  gem 'rspec', '>=2.0.0.beta.12'
+  gem 'rspec-rails', '>=2.0.0.beta.12'
   gem 'spork'
   gem 'launchy'
   gem 'factory_girl', :git => 'git://github.com/szimek/factory_girl.git', :branch => 'rails3'
-  gem 'ZenTest'
+  gem 'autotest'
   gem 'autotest-rails'
+  gem 'test_notifier'
 end

@@ -13,7 +13,7 @@ class Exchange
   embeds_many :entries
   belongs_to_related :parent_exchange, :class_name => "Exchange"
 
-  before_validate :set_user_ids
+  before_validation :set_user_ids
 
   named_scope :top_level, :where => { :parent_comment_id => nil, :parent_entry_id => nil, :parent_exchange_id => nil }
 
@@ -27,6 +27,10 @@ class Exchange
       entry = entries.create( entry_attributes )
       entry.save
     end
+  end
+
+  def ordered_entries
+    entries.sort { |x,y| x.created_at <=> y.created_at }
   end
 
   protected

@@ -12,7 +12,7 @@ describe Exchange do
     exchange.users << user_1
     exchange.users << user_2
     exchange.save
-    Exchange.where( :_id => exchange.id ).first.users.should eql( [user_1, user_2] )
+    Exchange.find( exchange.id ).users.should eql( [user_1, user_2] )
   end
 
   it "should remove users" do
@@ -25,7 +25,7 @@ describe Exchange do
     exchange = Exchange.where( :_id => exchange.id ).first
     exchange.users.delete( user_1 )
     exchange.save
-    Exchange.where( :_id => exchange.id ).first.users.should eql( [user_2] )
+    Exchange.find( exchange.id ).users.should eql( [user_2] )
   end
 
   it "should create entries via nested attributes" do
@@ -57,5 +57,14 @@ describe Exchange do
     Factory( :entry, :created_at => "2001-01-01", :exchange => exchange )
     Factory( :entry, :created_at => "2009-09-09", :exchange => exchange )
     exchange.most_recent_entry_date.strftime( "%Y-%m-%d" ).should eql( "2009-09-09" )
+  end
+
+  it "should determine ordered entries" do
+    exchange = Factory( :exchange )
+    Factory( :entry, :created_at => "2001-01-01", :exchange => exchange )
+    Factory( :entry, :created_at => "2009-09-09", :exchange => exchange )
+    Factory( :entry, :created_at => "2005-05-05", :exchange => exchange )
+    Factory( :entry, :created_at => "2007-07-07", :exchange => exchange )
+    exchange.ordered_entries.collect { |entry| entry.created_at.strftime( "%Y-%m-%y" ) }.should eql( ["2001-01-01", "2005-05-05", "2007-07-07", "2009-09-09"] )
   end
 end

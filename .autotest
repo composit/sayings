@@ -1,0 +1,6 @@
+require "test_notifier/autotest"
+Autotest.add_hook :initialize do |autotest|
+  %w{.git .svn .hg .DS_Store ._* vendor tmp log doc capybara*}.each do |exception|
+    autotest.add_exception(exception)
+  end
+end

@@ -29,4 +29,12 @@ class ExchangesController < ApplicationController
     entry.save!
     redirect_to exchanges_path, :notice => "Exchange was successfully created"
   end
+
+  def update
+    @exchange = Exchange.find( params[:id] )
+    entry = @exchange.entries.build( params[:exchange][:entry] )
+    entry.user = current_user
+    entry.save!
+    redirect_to @exchange, :notice => "Response was successfully created"
+  end
 end

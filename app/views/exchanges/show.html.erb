@@ -1,1 +1,15 @@
-<%= render( :partial => "entry", :collection => @exchange.entries.sort { |x,y| x.created_at <=> y.created_at } ) %>
+<%= render( :partial => "entry", :collection => @exchange.ordered_entries ) %>
+<% if( can?( :edit, @exchange ) ) %>
+  <div class="comment">
+    <%= link_to "add response", "#", :class => "show-field" %>
+    <div class="not-shown">
+      <%= form_for( @exchange ) do |f| %>
+        <%= f.fields_for @exchange.entries.build do |entry| %>
+          <%= entry.label :content, "response" %><br />
+          <%= entry.text_area :content, :cols => 60, :rows => 4 %>
+        <% end %>
+        <%= f.submit "Create response" %>
+      <% end %>
+    </div>
+  </div>
+<% end %>

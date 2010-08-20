@@ -5,6 +5,7 @@ Given /^the following entries:$/ do |table|
       hash.merge!( { "user_id" => user.id } ).delete( "user_username" )
     end
     exchange = Factory.build( :exchange )
+    exchange.users << user
     hash.merge!( { :exchange => exchange } )
     Factory( :entry, hash )
   end

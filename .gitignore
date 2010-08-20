@@ -10,3 +10,4 @@ config/initializers/local.rb
 config/initializers/devise.rb
 public/images/static_images/*
 public/static_pages/*
+nohup.out
