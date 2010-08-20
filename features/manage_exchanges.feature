@@ -5,6 +5,7 @@ Feature: Manage exchanges
   Scenario: See "respond" when appropriate
     Given the following entries in a single exchange:
       | user_username | content |
+      | Link          | Starter |
       | Link          | Test    |
     And the following comments:
       | entry_content | user_username | content |
@@ -25,6 +26,7 @@ Feature: Manage exchanges
   Scenario: Build exchanges
     Given the following entries in a single exchange:
       | user_username | content |
+      | Link          | Starter |
       | Link          | Test    |
     And the following comments:
       | entry_content | user_username | content |
@@ -44,6 +46,7 @@ Feature: Manage exchanges
   Scenario: Derivative exchanges shouldn't show up on home page
     Given the following entries in a single exchange:
       | user_username | content |
+      | Link          | Starter |
       | Link          | Test    |
     And the following comments:
       | entry_content | user_username | content |
@@ -59,6 +62,7 @@ Feature: Manage exchanges
   Scenario: view exchanges
     Given the following entries in a single exchange:
       | user_username | content |
+      | Link          | Starter |
       | Link          | Test    |
     And the following comments:
       | entry_content | user_username | content |

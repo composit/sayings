@@ -30,3 +30,6 @@ Feature: Manage users
 
   Scenario: Display first entry by user regardless of whether it's the first entry in the exchange
     pending
+
+  Scenario: Derivative exchanges shouldn't show up the user's page
+    pending
