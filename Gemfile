@@ -1,14 +1,14 @@
 source 'http://rubygems.org'
 
-#gem 'rails', '3.0.0.beta4'
+gem 'rails', '3.0.0.rc'
 
 # Bundle edge Rails instead:
-gem 'rails', :git => 'git://github.com/rails/rails.git'
+#gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 #gem 'mysql'
-gem 'mongoid', :git => 'http://github.com/durran/mongoid.git'
+gem 'mongoid', :git => 'http://github.com/mongoid/mongoid.git'
 gem 'mongo_ext'
-gem 'bson_ext', '>=1.0.1'
+gem 'bson_ext', '>=1.0.4'
 
 # Use unicorn as the web server
 # gem 'unicorn'
