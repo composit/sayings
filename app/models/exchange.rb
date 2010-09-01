@@ -6,7 +6,7 @@ class Exchange
   field :parent_entry_id
   field :parent_exchange_id
   field :user_ids, :type => Array, :default => []
-  field :most_recent_entry_date, :type => DateTime, :default => Time.now
+  field :most_recent_entry_date, :type => Time, :default => Time.now
 
   index :user_ids
 
