@@ -1,4 +1,4 @@
-Sayings::Application.routes.draw do |map|
+Sayings::Application.routes.draw do
   devise_for :users
   resources :users
 

@@ -4,10 +4,6 @@ log/*.log
 tmp/**/*
 config/mongoid.yml
 capybara*
-app/views/layouts/application.html.erb
-public/stylesheets/main.css
 config/initializers/local.rb
 config/initializers/devise.rb
-public/images/static_images/*
-public/static_pages/*
 nohup.out

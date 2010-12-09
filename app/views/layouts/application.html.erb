@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sayings</title>
+  <%= stylesheet_link_tag :all %>
+  <%= javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js' %>
+  <%= javascript_include_tag 'jquery-ujs/src/rails' %>
+  <%= javascript_include_tag 'entries' %>
+  <%= csrf_meta_tag %>
+</head>
+<body>
+  <div id="wrap">
+    <div id="nav">
+      <% if( user_signed_in? ) %>
+        <%= link_to "Logout", destroy_user_session_path %>
+      <% else %>
+        <%= link_to "Login", new_user_session_path %>
+      <% end %>
+    </div>
+    <div id="main">
+      <div id="header">
+        Decomposite
+	<div id="notice"><%= notice %></div>
+	<div id="alert"><%= alert %></div>
+      </div>
+
+      <%= yield %>
+    </div>
+    <div id="sidebar">
+      <ul>
+        <li><%= link_to "link 1" %></li>
+        <li><%= link_to "link 2" %></li>
+        <li><%= link_to "link 3" %></li>
+        <li><%= link_to "link 4" %></li>
+        <li><%= link_to "link 5" %></li>
+        <li><%= link_to "link 6" %></li>
+        <li><%= link_to "link 7" %></li>
+        <li><%= link_to "link 8" %></li>
+      </ul>
+    </div>
+    <div id="footer">
+    </div>
+  </div>
+</body>
+</html>
