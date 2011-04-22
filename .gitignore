@@ -3,6 +3,7 @@ db/*.sqlite3
 log/*.log
 tmp/**/*
 config/mongoid.yml
+config/database.yml
 capybara*
 config/initializers/local.rb
 config/initializers/devise.rb
